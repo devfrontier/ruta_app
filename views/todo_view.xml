@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <!-- Action to open To-Do Task list -->
+    <act_window id="action_ruta_task"
+      name="Servicios de Ruta"
+      res_model="ruta.task"
+      view_mode="calendar,tree,form" />
+
+    <menuitem id="main_ruta_menu" name="Rutas"/>
+    <menuitem id="section_main_ruta_menu" parent="main_ruta_menu" name="Hoja de Ruta" />
+
+    <!-- Menu Item to open To-Do Task list -->
+    <menuitem id="menu_ruta_task"
+      name="Tareas de Ruta"
+      parent="section_main_ruta_menu"
+      sequence="20"
+      action="action_ruta_task" />
+
+    <!-- To-Do Task Form view -->
+    <record id="view_form_ruta_task" model="ir.ui.view">
+      <field name="name">Formulario Servicios de Ruta</field>
+      <field name="model">ruta.task</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group name="group_top">
+              <group name="group_left">
+                <field name="cliente" on_change="onchange_cliente(cliente)"/>
+                <field name="rubro" readonly="True" default="onchange_cliente(cliente)"/>
+                <field name="empleado"/>
+              </group>
+              <group name="group_right">
+                <field name="fecha"/>
+                <field name="is_done"/>
+              </group>
+            </group>
+            <h2>Servicios</h2>
+            <group name="group_servicios">
+              <field name="servicios">
+                <tree string="Servicios:">
+                  <field name="name"/>
+                </tree>
+              </field>
+              <field name="nota"/>
+            </group>
+
+            <h2>Procedimientos</h2>
+            <group name="group_procedimiento">
+              <field name="procedimientos">
+                <tree string="Procedimientos:">
+                  <field name="name"/>
+                </tree>
+              </field>
+              <field name="otro"/>
+            </group>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+<record id="view_calendar_ruta_task" model="ir.ui.view">
+    <field name="name">Tareas de hoja de ruta</field>
+    <field name="model">ruta.task</field>
+    <field name="arch" type="xml">
+        <calendar quick_add="false" date_start="fecha" mode="week" color="empleado" display="[cliente]">
+            <!-- Fields used for the text of display attribute -->
+            <field name="cliente" />
+        </calendar>
+    </field>
+</record>
+    <!-- To-Do Task List view -->
+    <record id="view_tree_ruta_task" model="ir.ui.view">
+      <field name="name">Lista Servicios de Ruta</field>
+      <field name="model">ruta.task</field>
+      <field name="arch" type="xml">
+        <tree colors="gray:is_done==True" editable="bottom" default_order="fecha">
+          <field name="fecha"/>
+          <field name="cliente"/>
+          <field name="empleado"/>
+          <field name="is_done"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- To-Do Task Search view -->
+    <record id="view_filter_todo_task" model="ir.ui.view">
+      <field name="name">Filtro de Servicios de Ruta</field>
+      <field name="model">ruta.task</field>
+      <field name="arch" type="xml">
+        <search>
+         <group expand="1" string="Group By">
+           <filter string="Empleados" domain="[]" context="{'group_by':'empleado'}"/>
+          </group>
+          <field name="name"/>
+          <filter string="NO Realizados" domain="[('is_done','=',False)]"/>
+          <filter string="Realizados" domain="[('is_done','!=',False)]"/>
+          <filter icon="terp-go-today" string="HOY" domain="[('fecha','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('fecha','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Hoja de Ruta con los servicios de HOY"/>  
+        </search>
+      </field>
+    </record>
+
+  </data>
+</openerp>
