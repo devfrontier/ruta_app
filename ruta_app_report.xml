@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	  <report 
+            id="custom_report_hoja_ruta"
+            model="ruta.task"
+            string="Hoja de  Ruta V1"
+            report_type="qweb-html"
+            name="ruta_app.report_hoja_ruta"
+            attachment_use="False"
+            file="ruta_app.report_hoja_ruta"
+        />
+    </data>
+</openerp>

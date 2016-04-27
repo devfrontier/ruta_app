@@ -6,7 +6,7 @@
     <act_window id="action_ruta_task"
       name="Servicios de Ruta"
       res_model="ruta.task"
-      view_mode="tree,calendar,form" />
+      view_mode="calendar,tree,form" />
 
     <menuitem id="main_ruta_menu" name="Rutas"/>
     <menuitem id="section_main_ruta_menu" parent="main_ruta_menu" name="Hoja de Ruta" />
@@ -27,7 +27,8 @@
           <sheet>
             <group name="group_top">
               <group name="group_left">
-                <field name="cliente" />
+                <field name="cliente" on_change="onchange_cliente(cliente)"/>
+                <field name="rubro" readonly="True" default="onchange_cliente(cliente)"/>
                 <field name="empleado"/>
               </group>
               <group name="group_right">
@@ -61,12 +62,12 @@
     </record>
 
 <record id="view_calendar_ruta_task" model="ir.ui.view">
-    <field name="name">view_calendar_ruta_task</field>
+    <field name="name">Tareas de hoja de ruta</field>
     <field name="model">ruta.task</field>
     <field name="arch" type="xml">
-        <calendar date_start="fecha" color="empleado" display="[name]">
+        <calendar quick_add="false" date_start="fecha" mode="week" color="empleado" display="[cliente]">
             <!-- Fields used for the text of display attribute -->
-            <field name="name" />
+            <field name="cliente" />
         </calendar>
     </field>
 </record>
@@ -75,10 +76,10 @@
       <field name="name">Lista Servicios de Ruta</field>
       <field name="model">ruta.task</field>
       <field name="arch" type="xml">
-        <tree colors="gray:is_done==True">
-          <field name="name"/>
-          <field name="cliente"/>
+        <tree colors="gray:is_done==True" editable="bottom" default_order="fecha">
           <field name="fecha"/>
+          <field name="cliente"/>
+          <field name="empleado"/>
           <field name="is_done"/>
         </tree>
       </field>
@@ -90,6 +91,9 @@
       <field name="model">ruta.task</field>
       <field name="arch" type="xml">
         <search>
+         <group expand="1" string="Group By">
+           <filter string="Empleados" domain="[]" context="{'group_by':'empleado'}"/>
+          </group>
           <field name="name"/>
           <filter string="NO Realizados" domain="[('is_done','=',False)]"/>
           <filter string="Realizados" domain="[('is_done','!=',False)]"/>

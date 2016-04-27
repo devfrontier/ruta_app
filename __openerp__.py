@@ -10,5 +10,8 @@
         'views/servicios_view.xml',
         'views/empleados_view.xml',
         'views/procedimientos_view.xml',
+        'views/report_hoja_ruta.xml',
+        'ruta_app_report.xml',
+
     ]
 }

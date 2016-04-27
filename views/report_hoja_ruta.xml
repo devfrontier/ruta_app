@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+<template id="report_hoja_ruta">
+      <t t-call="report.html_container">
+		<div class="page">
+			<h2>Hoja de Ruta..</h2>
+			<p>Fecha: <span t-field="docs[0].fecha" t-field-options="{&quot;format&quot;: &quot;d / MMMM  / y&quot;}"/></p>
+			<table class="tg" border="1">
+					<tr>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Hora<![CDATA[&nbsp;]]></th>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Destino<![CDATA[&nbsp;]]></th>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Cliente<![CDATA[&nbsp;]]></th>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Rubro<![CDATA[&nbsp;]]></th>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Servicios<![CDATA[&nbsp;]]></th>
+						<th class="tg-xels"><![CDATA[&nbsp;]]>Procedimientos<![CDATA[&nbsp;]]></th>
+					</tr>
+					
+					<t t-foreach="docs" t-as="o">
+						<tr>
+							<td class="tg-yw4l">
+								<table border="1">
+									<tr>
+										<td>Inicio</td>
+									</tr>
+									<tr>
+										<td>
+											<span t-field="o.fecha" t-field-options='{"format": "h:m"}'/>
+										</td>
+									</tr>
+									<tr>
+										<td>Fin</td>
+									</tr>
+									<tr>
+										<td>
+											<![CDATA[&nbsp;	]]>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td class="tg-yw4l"><span t-field="o.cliente.contact_address"/></td>
+							<td class="tg-yw4l"><span t-field="o.cliente"/></td>
+							
+							<t t-foreach="o.cliente.category_id" t-as="categ_id">
+								<td class="tg-yw4l"><![CDATA[&nbsp;	]]><span t-field="categ_id.name"/></td>
+							</t>
+							
+							<td class="tg-yw4l">
+								<t t-foreach="o.servicios" t-as="serv_id">
+									<p><![CDATA[&nbsp;]]><span t-field="serv_id.name"/></p>
+								</t>
+							</td>
+							
+							<td class="tg-yw4l">
+								<t t-foreach="o.procedimientos" t-as="proc_id">
+									<p><![CDATA[&nbsp;]]><span t-field="proc_id.name"/></p>
+								</t>
+							</td>
+							
+							<td class="tg-yw4l"> </td>
+						</tr>
+		            </t>
+			</table>
+		</div>
+      </t>
+</template>
+</data>
+</openerp>

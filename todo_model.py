@@ -16,6 +16,13 @@ class RutaTask(models.Model):
     is_done = fields.Boolean('Realizado?')
     nota = fields.Text()
 
+    def onchange_cliente(self, cr, uid, ids, partner_id, context=None):
+      res = {}
+      if partner_id:
+        obj = self.pool.get('res.partner').browse(cr, uid, partner_id)
+        res['rubro'] = obj.category_id.name
+      return {'value': res}
+
     @api.one
     def do_toggle_done(self):
         # print self.env.context
@@ -27,4 +34,3 @@ class RutaTask(models.Model):
         done_recs = self.search([('is_done', '=', True)])
         done_recs.write({'active': False})
         return True
-  

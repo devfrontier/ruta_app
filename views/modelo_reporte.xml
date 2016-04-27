@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<openerp>
+<data>
+<template id="report_hoja_servicios_document">
+<t t-name="ruta_app.hoja_ruta">
+  <t t-call="report.html_container">
+    <div class="page">
+      <h2><span tabindex="-1" data-cke-widget-wrapper="1" data-cke-filter="off" class="cke_widget_wrapper cke_widget_inline" data-cke-display-name="span" data-cke-widget-id="3"><span class=" fa fa-road fa-2x  cke_widget_element" style="-webkit-animation-play-state: paused; animation-play-state: paused; -webkit-transition: none; transition: none" data-cke-widget-data="{}" data-cke-widget-keep-attr="0" data-widget="icons"/></span>Hoja de Ruta<span tabindex="-1" data-cke-widget-wrapper="1" data-cke-filter="off" class="cke_widget_wrapper cke_widget_inline" data-cke-display-name="span" data-cke-widget-id="3"/></h2>
+<p>Fecha: </p>
+<table class="tg" border="1" style="border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;">
+  <tr>
+    <th class="tg-xels">Hora</th>
+    <th class="tg-xels">Destino</th>
+    <th class="tg-xels">Cliente</th>
+    <th class="tg-xels">Rubro</th>
+    <th class="tg-xels">Tipo Servicio</th>
+    <th class="tg-xels">Procedimiento</th>
+    <th class="tg-xels">Productos</th>
+  </tr>
+<t t-foreach="docs" t-as="o">
+  <tr>
+    <td class="tg-yw4l"><table border="1"><tr><td>Inicio</td></tr><tr><td><![CDATA[
+&nbsp;
+]]></td></tr><tr><td>Fin</td></tr><tr><td><![CDATA[
+&nbsp;
+]]></td></tr></table></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><span t-field="o.cliente"/></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">
+       <table border="0">
+       <tr>
+            <td>Pulveriz </td><td><![CDATA[
+&nbsp;
+]]><t t-if="o.pulveriz"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.pulveriz"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+             <td>Aerosol </td><td>
+<t t-if="o.aerosol"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.aerosol"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+           <td>GEL</td><td><![CDATA[
+&nbsp;
+]]><t t-if="o.gel"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.gel"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+        </tr>
+         <tr>
+            <td>Cebos </td><td><![CDATA[
+&nbsp;
+]]><t t-if="o.cebos"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.cebos"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+             <td>Trampas </td><td><![CDATA[
+&nbsp;
+]]><t t-if="o.trampas"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.trampas"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+           <td>Monitoreo</td><td><![CDATA[
+&nbsp;
+]]><t t-if="o.monitoreo"><p><i class="fa fa-check-square-o" aria-hidden="true"></i></p>
+    </t>
+<t t-if="not o.monitoreo"><p><i class="fa fa-square-o" aria-hidden="true"></i></p>
+    </t>
+</td>
+        </tr>
+</table>
+
+    </td>
+    <td class="tg-yw4l"></td>
+  </tr>
+            </t>
+</table>
+    </div>
+  </t>
+</t>
+</template>
+
+<template id="report_hoja_servicios">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'ruta-app.report_hoja_servicios_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>
